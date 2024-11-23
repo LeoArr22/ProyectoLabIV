@@ -6,12 +6,12 @@ def longitud_palabra(palabra, min, max):
     elif len(palabra) < min:
         return (False, f"No alcanzó la longitud mínima de {min} caracteres")
     else:
-        return (palabra) 
+        return (True, "") 
 
 def solo_letras(palabra):
     if not palabra.isalpha():
         return (False, "Solo se permiten caracteres")
     else:
-        return palabra
+        return (True, "")
             
     
