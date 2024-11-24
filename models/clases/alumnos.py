@@ -91,15 +91,6 @@ class Alumno:
                 
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
 #FORMA DE UTILIZARLO    
 # EL TRY CAPTURA EL ERROR Y NO PERMITE QUE SE ASIGNE EL VALOR, Y MUESTRA EL ERROR
 # try:

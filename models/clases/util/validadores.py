@@ -33,7 +33,7 @@ def solo_letras(palabra):
         return (False, "Solo se permiten letras y espacios")
             
             
-#VALIDADORES DE NUMEROS
+#VALIDADORES DE INT
 
 def longitud_numero(numero, min, max):
     numero=str(numero)
@@ -51,4 +51,11 @@ def solo_numero(numero):
     else:
         return (False, "Solo se permiten numeros")
     
+    
+# VALIDADORES DE FLOAT
+def solo_flotante(numero):
+    if re.fullmatch("[0-9]+", numero):
+        return (True, "")    
+    else:
+        return (False, "Solo se permiten numeros")
     

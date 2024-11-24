@@ -27,21 +27,22 @@ with sqlite3.connect(db_path) as conexion:
     #Usamos una clve primaria compuesta para evitar registros duplicados para el par de ID alumno y materia
     #Luego indicamos que son claves foraneas haciendo referencia a los ID de alumno y materia
     #Ademas agregamos que se eliminen en cascada en caso de eliminar un alumno o materia
-    cursor=cursor.execute("""
+    cursor.execute("""
         CREATE TABLE IF NOT EXISTS Notas (
         alumnoID INTEGER NOT NULL,
         materiaID INTEGER NOT NULL,
-        nota1 REAL NOT NULL,
-        nota2 REAL NOT NULL,
-        recuperatorio1 REAL,
-        recuperatorio2 REAL,
-        notaFinal REAL,
-        estado TEXT NOT NULL,
+        nota1 INTEGER DEFAULT NULL,
+        nota2 INTEGER DEFAULT NULL,
+        recuperatorio1 INTEGER DEFAULT NULL,
+        recuperatorio2 INTEGER DEFAULT NULL,
+        notaFinal INTEGER DEFAULT NULL,
+        estado TEXT NOT NULL DEFAULT 'En curso',
         PRIMARY KEY (alumnoID, materiaID),
-        FOREIGN KEY (alumnoID) REFERENCES Alumnos(ID) ON DELETE CASCADE,
-        FOREIGN KEY (materiaID) REFERENCES Materias(ID) ON DELETE CASCADE
+        FOREIGN KEY (alumnoID) REFERENCES Alumnos(alumnoID) ON DELETE CASCADE,
+        FOREIGN KEY (materiaID) REFERENCES Materias(materiaID) ON DELETE CASCADE
         )
         """)
+
     
     #justificativo funcionara como un boolean: 1 Para SI, 0 Para NO
     cursor=cursor.execute("""
