@@ -3,15 +3,15 @@ import os
 
 db_path = os.path.join("data", "Curso.db")
 
-with sqlite3.connect(db_path) as conexion:
-    cursor = conexion.cursor()
+with sqlite3.connect(db_path) as conn:
+    cursor = conn.cursor()
     
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS Alumnos (
         alumnoID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
         nombre TEXT NOT NULL,
         apellido TEXT NOT NULL,
-        documento TEXT NOT NULL,
+        documento TEXT NOT NULL UNIQUE,
         telefono INT NOT NULL,
         direccion TEXT
         )
@@ -29,7 +29,7 @@ with sqlite3.connect(db_path) as conexion:
     #Ademas agregamos que se eliminen en cascada en caso de eliminar un alumno o materia
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS Notas (
-        alumnoID INTEGER NOT NULL,
+        alumnoID INTEGER NOT NULL, -- Relación con Alumnos
         materiaID INTEGER NOT NULL,
         nota1 INTEGER DEFAULT NULL,
         nota2 INTEGER DEFAULT NULL,
@@ -46,22 +46,27 @@ with sqlite3.connect(db_path) as conexion:
     
     #justificativo funcionara como un boolean: 1 Para SI, 0 Para NO
     cursor=cursor.execute("""
-        CREATE TABLE IF NOT EXISTS Faltas(
+        CREATE TABLE IF NOT EXISTS Faltas (
         faltaID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
+        alumnoID INTEGER NOT NULL, -- Relación con Alumnos
         fecha DATE NOT NULL,
-        justificativo INTEGER NOT NULL,
-        observaciones TEXT
+        justificativo INTEGER NOT NULL, -- 1: Sí, 0: No
+        observaciones TEXT,
+        FOREIGN KEY (alumnoID) REFERENCES Alumnos(alumnoID) ON DELETE CASCADE
         )
         """)
     
     cursor=cursor.execute("""
-        CREATE TABLE IF NOT EXISTS Amonestaciones(
+        CREATE TABLE IF NOT EXISTS Amonestaciones (
         amonestacionesID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+        alumnoID INTEGER NOT NULL, -- Relación con Alumnos
         fecha DATE NOT NULL,
         motivo TEXT NOT NULL,
-        cantidad INTEGER NOT NULL    
+        cantidad INTEGER NOT NULL,
+        FOREIGN KEY (alumnoID) REFERENCES Alumnos(alumnoID) ON DELETE CASCADE
         )
         """)
+    
     
     
     

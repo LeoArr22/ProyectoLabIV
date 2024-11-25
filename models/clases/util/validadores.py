@@ -1,4 +1,5 @@
 import re #Importamos modulo re para trabajar con expresiones regulares
+from datetime import datetime
 
 
 
@@ -51,11 +52,18 @@ def solo_numero(numero):
     else:
         return (False, "Solo se permiten numeros")
     
-    
-# VALIDADORES DE FLOAT
-def solo_flotante(numero):
-    if re.fullmatch("[0-9]+", numero):
-        return (True, "")    
+def dentro_rango(numero, min, max):
+    if numero < min or numero > max:
+        return (False, f"Fuera de rango (de {min} a {max})")
     else:
-        return (False, "Solo se permiten numeros")
+        return (True, "")
     
+    
+# VALIDADOR DE FECHA
+
+def valida_fecha(fecha, formato=r"%Y-%m-%d"):
+    try:
+        datetime.strptime(fecha, formato)
+        return (True, "")
+    except ValueError:
+        return (False, "Fecha no valida (YYYY-MM-DD)")

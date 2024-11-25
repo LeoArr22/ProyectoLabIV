@@ -6,7 +6,7 @@ class Alumno:
         self.apellido=apellido
         self.documento=documento
         self.telefono=telefono
-        self.direccion=direccion        
+        self.direccion=direccion
         
 #NOMBRE    
     @property #Convertimos el metodo en un getter
@@ -98,4 +98,4 @@ class Alumno:
 # except ValueError as e:
 #     print(e)  # Muestra el error si las validaciones fallan
 
-# # print(alumno1.apellido)  # Imprime el valor actual del nombre
+# print(alumno1.apellido)  # Imprime el valor actual del nombre

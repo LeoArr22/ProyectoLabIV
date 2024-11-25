@@ -18,8 +18,8 @@ class Nota:
     def nota1(self, nueva_nota):
         if nueva_nota is not None:
             validadores = [
-                lambda numero: solo_flotante(numero),
-                lambda numero: dentro_rango(numero, 0, 10)
+                lambda numero: solo_numero(numero),
+                lambda numero: dentro_rango(numero, 1, 10)
             ]
             recorre_validadores(validadores, nueva_nota)
         self.__nota1 = nueva_nota
@@ -33,8 +33,8 @@ class Nota:
     def nota2(self, nueva_nota):
         if nueva_nota is not None:
             validadores = [
-                lambda numero: es_numero_real(numero),
-                lambda numero: dentro_rango(numero, 0, 10)
+                lambda numero: solo_numero(numero),
+                lambda numero: dentro_rango(numero, 1, 10)
             ]
             recorre_validadores(validadores, nueva_nota)
         self.__nota2 = nueva_nota
@@ -48,8 +48,8 @@ class Nota:
     def recuperatorio1(self, nueva_nota):
         if nueva_nota is not None:
             validadores = [
-                lambda numero: es_numero_real(numero),
-                lambda numero: dentro_rango(numero, 0, 10)
+                lambda numero: solo_numero(numero),
+                lambda numero: dentro_rango(numero, 1, 10)
             ]
             recorre_validadores(validadores, nueva_nota)
         self.__recuperatorio1 = nueva_nota
@@ -63,8 +63,8 @@ class Nota:
     def recuperatorio2(self, nueva_nota):
         if nueva_nota is not None:
             validadores = [
-                lambda numero: es_numero_real(numero),
-                lambda numero: dentro_rango(numero, 0, 10)
+                lambda numero: solo_numero(numero),
+                lambda numero: dentro_rango(numero, 1, 10)
             ]
             recorre_validadores(validadores, nueva_nota)
         self.__recuperatorio2 = nueva_nota
@@ -78,8 +78,8 @@ class Nota:
     def nota_final(self, nueva_nota):
         if nueva_nota is not None:
             validadores = [
-                lambda numero: es_numero_real(numero),
-                lambda numero: dentro_rango(numero, 0, 10)
+                lambda numero: solo_numero(numero),
+                lambda numero: dentro_rango(numero, 1, 10)
             ]
             recorre_validadores(validadores, nueva_nota)
         self.__nota_final = nueva_nota
@@ -98,3 +98,4 @@ class Nota:
             ]
             recorre_validadores(validadores, nuevo_estado)
         self.__estado = nuevo_estado
+
