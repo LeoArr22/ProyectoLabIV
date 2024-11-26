@@ -1,12 +1,23 @@
 from util.validadores import *
 
+#Todos nuestros atributos tendran de valor predeterminado None
+#De esta forma vamos a poder actualizar atributos de manera individual
 class Alumno:
-    def __init__(self, nombre, apellido, documento, telefono, direccion):
+    def __init__(self, nombre=None, apellido=None, documento=None, telefono=None, direccion=None):
         self.nombre=nombre
         self.apellido=apellido
         self.documento=documento
         self.telefono=telefono
         self.direccion=direccion
+        
+#Vamos a usarlo para el create    
+    def es_completo(self):
+        atributos_requeridos = ["nombre", "apellido", "documento", "telefono", "direccion"]
+        for atributo in atributos_requeridos:
+            if getattr(self, atributo) is None:  #getattr: obtiene el valor de cada atributo. Si alguno es None 
+                return False                     #significa que nuestro modelo aun no esta completo y nos devuelve False
+        return True 
+     
         
 #NOMBRE    
     @property #Convertimos el metodo en un getter
@@ -15,15 +26,16 @@ class Alumno:
     
     @nombre.setter #convertimos el metodo en un setter, usamos notacion de punto alumno1.nombre="Nuevo_nombre"
     def nombre(self, nuevo_nombre):
+        if nuevo_nombre is not None:
         # Lista de validadores con sus parametros
-        validadores = [
-            lambda palabra: longitud_palabra(palabra, 2, 20), #Usamos funciones anonimas para validar cada validador
-            lambda palabra: solo_letras(palabra) #todas nos van a devolver una tupla de dos valores
-        ]
-#La tupla obtenida puede ser (False, "mensaje de error") o (True, "")
-#valido guarda al booleano, mensaje al string
-#en caso de ser falso se activa el if y devuelve como mensaje de error al try para su impresion
-        recorre_validadores(validadores, nuevo_nombre)
+            validadores = [
+                lambda palabra: longitud_palabra(palabra, 2, 20), #Usamos funciones anonimas para validar cada validador
+                lambda palabra: solo_letras(palabra) #todas nos van a devolver una tupla de dos valores
+            ]
+    #La tupla obtenida puede ser (False, "mensaje de error") o (True, "")
+    #valido guarda al booleano, mensaje al string
+    #en caso de ser falso se activa el if y devuelve como mensaje de error al try para su impresion
+            recorre_validadores(validadores, nuevo_nombre)
         self.__nombre = nuevo_nombre 
             
             
@@ -34,12 +46,14 @@ class Alumno:
     
     @apellido.setter 
     def apellido(self, nuevo_apellido):
-        validadores = [
-            lambda palabra: longitud_palabra(palabra, 1, 20),
-            lambda palabra: solo_letras(palabra) 
-        ]
+        if nuevo_apellido is not None:
+    
+            validadores = [
+                lambda palabra: longitud_palabra(palabra, 1, 20),
+                lambda palabra: solo_letras(palabra) 
+            ]
 
-        recorre_validadores(validadores, nuevo_apellido)
+            recorre_validadores(validadores, nuevo_apellido)
         self.__apellido = nuevo_apellido     
         
 
@@ -50,12 +64,13 @@ class Alumno:
     
     @documento.setter 
     def documento(self, nuevo_documento):
-        validadores = [
-            lambda numero: longitud_numero(numero, 8, 8),
-            lambda numero: solo_numero(numero) 
-        ]
+        if nuevo_documento is not None:
+            validadores = [
+                lambda numero: longitud_numero(numero, 8, 8),
+                lambda numero: solo_numero(numero) 
+            ]
 
-        recorre_validadores(validadores, nuevo_documento)
+            recorre_validadores(validadores, nuevo_documento)
         self.__documento = nuevo_documento
         
         
@@ -66,12 +81,13 @@ class Alumno:
     
     @telefono.setter 
     def telefono(self, nuevo_telefono):
-        validadores = [
-            lambda numero: longitud_numero(numero, 6, 15),
-            lambda numero: solo_numero(numero)
-        ]
+        if nuevo_telefono is not None:
+            validadores = [
+                lambda numero: longitud_numero(numero, 6, 15),
+                lambda numero: solo_numero(numero)
+            ]
 
-        recorre_validadores(validadores, nuevo_telefono)
+            recorre_validadores(validadores, nuevo_telefono)
         self.__telefono = nuevo_telefono       
         
 
@@ -82,13 +98,16 @@ class Alumno:
     
     @direccion.setter 
     def direccion(self, nuevo_direccion):
-        validadores = [
-            lambda palabra: longitud_palabra(palabra, 6, 15),
-        ]
+        if nuevo_direccion is not None:
+            validadores = [
+                lambda palabra: longitud_palabra(palabra, 6, 15),
+            ]
 
-        recorre_validadores(validadores, nuevo_direccion)
+            recorre_validadores(validadores, nuevo_direccion)
         self.__direccion = nuevo_direccion          
-                
+
+
+alumno1=Alumno()
         
         
 #FORMA DE UTILIZARLO    

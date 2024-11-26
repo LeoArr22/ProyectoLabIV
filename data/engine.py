@@ -13,7 +13,7 @@ with sqlite3.connect(db_path) as conn:
         apellido TEXT NOT NULL,
         documento TEXT NOT NULL UNIQUE,
         telefono INT NOT NULL,
-        direccion TEXT
+        direccion TEXT NOT NULL
         )
         """)
     

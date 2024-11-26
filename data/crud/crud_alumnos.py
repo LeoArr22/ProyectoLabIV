@@ -2,13 +2,14 @@ import sqlite3
 import os
 
 class CrudAlumnos:
-    def __init__(self, db_path=None):
+    def __init__(self):
         # Ruta a la base de datos
-        self.db_path = db_path or os.path.join("data", "Curso.db")
+        self.db_path = os.path.join("data", "Curso.db")
+
     
     
-#CREATE:
-    def crear_alumno(self, nombre, apellido, documento, telefono, direccion=None):
+#CREATE: Crear un alumno
+    def crear_alumno(self, nombre, apellido, documento, telefono, direccion):
         query = """
             INSERT INTO Alumnos (nombre, apellido, documento, telefono, direccion)
             VALUES (?, ?, ?, ?, ?)
@@ -17,7 +18,7 @@ class CrudAlumnos:
             cursor = conn.cursor()
             cursor.execute(query, (nombre, apellido, documento, telefono, direccion))
             conn.commit()
-            return cursor.lastrowid  # Devuelve el ID del alumno creado
+            return cursor.lastrowid  #Devuelve el ID del alumno creado
 
 #READ: todos los alumnos
     def obtener_todos(self):
@@ -25,18 +26,27 @@ class CrudAlumnos:
         with sqlite3.connect(self.db_path) as conn:
             cursor = conn.cursor()
             cursor.execute(query)
-            return cursor.fetchall()  # Devuelve una lista de tuplas con los alumnos
+            return cursor.fetchall()  #devuelve una lista de tuplas con los alumnos
 
-    # READ: Obtener un alumno por ID
+#READ: Obtener un alumno por ID
     def obtener_por_id(self, alumno_id):
         query = "SELECT * FROM Alumnos WHERE alumnoID = ?"
         with sqlite3.connect(self.db_path) as conn:
             cursor = conn.cursor()
             cursor.execute(query, (alumno_id,))
-            return cursor.fetchone()  # Devuelve una tupla con los datos del alumno o None
-
-    # UPDATE: Modificar un alumno
-    def actualizar_alumno(self, alumno_id, nombre=None, apellido=None, documento=None, telefono=None, direccion=None):
+            return cursor.fetchone()  #devuelve una tupla con los datos del alumno o None
+        
+# READ: Obtener un alumno por documento
+    def obtener_por_documento(self, documento):
+        query = "SELECT * FROM Alumnos WHERE documento = ?"
+        with sqlite3.connect(self.db_path) as conn:
+            cursor = conn.cursor()
+            cursor.execute(query, (documento,)) #cursor espera una lista o una tupla. Como solo estamos pasando
+                                    #un unico atributo debemos colocar una coma para que python entienda que se trata de una tupla
+            return cursor.fetchone()
+            
+# UPDATE: Modificar un alumno
+    def actualizar_alumno(self, alumno_id, nombre, apellido, documento, telefono, direccion):
         query = """
             UPDATE Alumnos
             SET nombre = COALESCE(?, nombre),
@@ -52,7 +62,7 @@ class CrudAlumnos:
             conn.commit()
             return cursor.rowcount  # Devuelve el número de filas actualizadas
 
-    # DELETE: Eliminar un alumno
+# DELETE: Eliminar un alumno
     def eliminar_alumno(self, alumno_id):
         query = "DELETE FROM Alumnos WHERE alumnoID = ?"
         with sqlite3.connect(self.db_path) as conn:
@@ -60,6 +70,3 @@ class CrudAlumnos:
             cursor.execute(query, (alumno_id,))
             conn.commit()
             return cursor.rowcount  # Devuelve el número de filas eliminadas
-
-nuevo=CrudAlumnos()
-nuevo.crear_alumno("Leo", "Arr", 38609203, 1122334455, "Sanabria")
