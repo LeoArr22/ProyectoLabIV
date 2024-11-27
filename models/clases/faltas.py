@@ -26,7 +26,7 @@ class Falta:
                 lambda fecha: valida_fecha(fecha)  # Validador para fechas
             ]
             recorre_validadores(validadores, nueva_fecha)
-        self.__fecha = nueva_fecha
+            self.__fecha = nueva_fecha
 
     # JUSTIFICATIVO
     @property
@@ -41,7 +41,7 @@ class Falta:
                 lambda justificativo: dentro_rango(justificativo, 0, 1)  # Solo 0 o 1
             ]
             recorre_validadores(validadores, nuevo_justificativo)
-        self.__justificativo = nuevo_justificativo
+            self.__justificativo = nuevo_justificativo
 
     # OBSERVACIONES
     @property

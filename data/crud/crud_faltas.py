@@ -34,20 +34,20 @@ class CrudFaltas(Conexion):
             cursor.execute(query, (alumno_id,)) #Colocamos coma para indicar que es una tupla
             return cursor.fetchall()
         
-#READ: Obtener por fecha
+#READ: Obtener por fechas
     def obtener_por_fecha(self, fecha):
         query = """SELECT * FROM Faltas WHERE fecha = ?"""
         
         with self.abrir_conexion() as conn:
             cursor = conn.cursor()
-            cursor.execute(query, (fecha))
+            cursor.execute(query, (fecha,))
             return cursor.fetchall()    
         
         
 #UPDATE: Modificar una falta
     def actualizar_falta(self, alumno_id, fecha, justificativo, observaciones):
         query = """
-            UPDATE Alumnos
+            UPDATE Faltas
             SET fecha = COALESCE(?, fecha),
                 justificativo = COALESCE(?, justificativo),
                 observaciones = COALESCE(?, observaciones)
@@ -56,7 +56,22 @@ class CrudFaltas(Conexion):
         with self.abrir_conexion() as conn:
             cursor = conn.cursor()
             cursor.execute(query, (fecha, justificativo, observaciones, alumno_id))
-            return cursor.lastrowid
+            return cursor.lastrowid #Si devuelve 0 no encontro el registro
         
-# #DELETE: Eliminar una falta
-#     def eliminar_falta(self, alum
+#DELETE: Eliminar una falta
+    def eliminar_falta(self, falta_id):
+        query = "DELETE FROM Faltas WHERE faltaID = ?"
+        with self.abrir_conexion() as conn:
+            cursor = conn.cursor()
+            cursor.execute(query, (falta_id,))
+            conn.commit()
+            return cursor.rowcount  #Devuelve el numero de fila eliminada
+        
+#DELETE: Eliminar a todas las faltas
+    def eliminar_todas_faltas(self):
+        query = "DELETE FROM Faltas"
+        with self.abrir_conexion() as conn:
+            cursor = conn.cursor()
+            cursor.execute(query)
+            conn.commit()
+            return cursor.rowcount #Devuelve el numero de filas eliminadas

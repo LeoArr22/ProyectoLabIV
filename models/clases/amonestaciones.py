@@ -27,7 +27,7 @@ class Amonestacion:
                 lambda fecha: valida_fecha(fecha)
             ]
             recorre_validadores(validadores, nueva_fecha)
-        self.__fecha = nueva_fecha
+            self.__fecha = nueva_fecha
 
 #MOTIVO
     @property
@@ -41,7 +41,7 @@ class Amonestacion:
                 lambda texto: longitud_palabra(texto, 1, 255)
             ]
             recorre_validadores(validadores, nuevo_motivo)
-        self.__motivo = nuevo_motivo
+            self.__motivo = nuevo_motivo
 
 #CANTIDAD
     @property
@@ -56,4 +56,4 @@ class Amonestacion:
                 lambda valor: dentro_rango(valor, 1, 20)
             ]
             recorre_validadores(validadores, nueva_cantidad)
-        self.__cantidad = nueva_cantidad
+            self.__cantidad = nueva_cantidad

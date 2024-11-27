@@ -36,7 +36,7 @@ class Alumno:
     #valido guarda al booleano, mensaje al string
     #en caso de ser falso se activa el if y devuelve como mensaje de error al try para su impresion
             recorre_validadores(validadores, nuevo_nombre)
-        self.__nombre = nuevo_nombre 
+            self.__nombre = nuevo_nombre 
             
             
 #APELLIDO    
@@ -54,7 +54,7 @@ class Alumno:
             ]
 
             recorre_validadores(validadores, nuevo_apellido)
-        self.__apellido = nuevo_apellido     
+            self.__apellido = nuevo_apellido     
         
 
 #DOCUMENTO    
@@ -71,7 +71,7 @@ class Alumno:
             ]
 
             recorre_validadores(validadores, nuevo_documento)
-        self.__documento = nuevo_documento
+            self.__documento = nuevo_documento
         
         
 #TELEFONO    
@@ -88,7 +88,7 @@ class Alumno:
             ]
 
             recorre_validadores(validadores, nuevo_telefono)
-        self.__telefono = nuevo_telefono       
+            self.__telefono = nuevo_telefono       
         
 
 #DIRECCION    
@@ -104,7 +104,7 @@ class Alumno:
             ]
 
             recorre_validadores(validadores, nuevo_direccion)
-        self.__direccion = nuevo_direccion          
+            self.__direccion = nuevo_direccion          
 
 
 alumno1=Alumno()

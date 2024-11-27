@@ -24,4 +24,4 @@ class Materia:
             ]
 
             recorre_validadores(validadores, nuevo_nombre)
-        self.__nombre = nuevo_nombre  
+            self.__nombre = nuevo_nombre  

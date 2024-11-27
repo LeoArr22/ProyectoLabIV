@@ -28,7 +28,7 @@ def solo_letras(palabra):
     # a-zA-Z (todas las letras minus y mayus) y \s (los espacios)
     # la r inicial indica que se trata de una cadena sin procesar para evitar problemas con el guion invertido
     # El + indica uno o mas del conjunto anterior
-    if re.fullmatch(r"[a-zA-Z\s]+", palabra):
+    if re.fullmatch(r"[a-zA-ZñÑ\s]+", palabra):
         return (True, "")
     else:
         return (False, "Solo se permiten letras y espacios")

@@ -32,7 +32,7 @@ class CrudAlumnos(Conexion):
             cursor.execute(query, (alumno_id,))
             return cursor.fetchone()  #devuelve una tupla con los datos del alumno o None
         
-# READ: Obtener un alumno por documento
+#READ: Obtener un alumno por documento
     def obtener_por_documento(self, documento):
         query = "SELECT * FROM Alumnos WHERE documento = ?"
         with self.abrir_conexion() as conn:
@@ -41,7 +41,7 @@ class CrudAlumnos(Conexion):
                                     #un unico atributo debemos colocar una coma para que python entienda que se trata de una tupla
             return cursor.fetchone()
             
-# UPDATE: Modificar un alumno
+#UPDATE: Modificar un alumno
     def actualizar_alumno(self, alumno_id, nombre, apellido, documento, telefono, direccion):
         query = """
             UPDATE Alumnos
@@ -56,13 +56,22 @@ class CrudAlumnos(Conexion):
             cursor = conn.cursor()
             cursor.execute(query, (nombre, apellido, documento, telefono, direccion, alumno_id))
             conn.commit()
-            return cursor.rowcount  # Devuelve el número de filas actualizadas
+            return cursor.rowcount  #Devuelve el numero de filas actualizadas
 
-# DELETE: Eliminar un alumno
+#DELETE: Eliminar un alumno
     def eliminar_alumno(self, alumno_id):
         query = "DELETE FROM Alumnos WHERE alumnoID = ?"
         with self.abrir_conexion() as conn:
             cursor = conn.cursor()
             cursor.execute(query, (alumno_id,))
             conn.commit()
-            return cursor.rowcount  # Devuelve el número de filas eliminadas
+            return cursor.rowcount  #Devuelve el numero de filas eliminadas
+        
+#DELETE: Eliminar a todos los alumnos
+    def eliminar_todos_alumnos(self):
+        query = "DELETE FROM Alumnos"
+        with self.abrir_conexion() as conn:
+            cursor = conn.cursor()
+            cursor.execute(query)
+            conn.commit()
+            return cursor.rowcount #Devuelve el numero de filas eliminadas

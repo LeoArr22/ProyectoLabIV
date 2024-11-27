@@ -29,7 +29,7 @@ class CrudMaterias(Conexion):
 #UPDATE: Modificar una materia
     def actualizar_materia(self, materia_id, nombre):
         query = """
-            UPDATE Materia
+            UPDATE Materias
             SET nombre = COALESCE(?, nombre)
             WHERE materiaID = ?
         """
@@ -43,12 +43,21 @@ class CrudMaterias(Conexion):
         
 #DELETE: Eliminar una materia
     def eliminar_materia(self, materia_id):
-        query = """DETELE FROM Materias WHERE materiaID = ?
+        query = """DELETE FROM Materias WHERE materiaID = ?
         """
         with self.abrir_conexion() as conn:
             cursor = conn.cursor()
             cursor.execute(query, (materia_id,))
-            conn.commit
+            conn.commit()
             return cursor.rowcount
+        
+#DELETE: Eliminar a todos las materias
+    def elimnar_todas_materias(self):
+        query = "DELETE FROM Materias"
+        with self.abrir_conexion() as conn:
+            cursor = conn.cursor()
+            cursor.execute(query)
+            conn.commit()
+            return cursor.rowcount #Devuelve el numero de filas eliminadas        
         
     
