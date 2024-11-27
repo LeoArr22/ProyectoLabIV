@@ -1,11 +1,8 @@
-import sqlite3
-import os
+from clase_conexion import Conexion
 
-class CrudMaterias:
+class CrudMaterias(Conexion):
     def __init__(self):
-        # Ruta a la base de datos
-        self.db_path = os.path.join("data", "Curso.db")
-        
+        super().__init__()
         
 #CREATE: Crear una materia
     def crear_materia(self, nombre):
@@ -13,7 +10,7 @@ class CrudMaterias:
             INSERT INTO Materias(nombre)
             VALUES (?)
         """
-        with sqlite3.connect(self.db_path) as conn:
+        with self.abrir_conexion() as conn:
             cursor = conn.cursor()
             cursor.execute(query, (nombre,))
             conn.commit()
@@ -23,7 +20,7 @@ class CrudMaterias:
 #READ: Todas las materias
     def obtener_todas(self):
         query = "SELECT * FROM Materias"
-        with sqlite3.connect(self.db_path) as conn:
+        with self.abrir_conexion() as conn:
             cursor = conn.cursor()
             cursor.execute(query)
             return cursor.fetchall()
@@ -37,7 +34,7 @@ class CrudMaterias:
             WHERE materiaID = ?
         """
         
-        with sqlite3.connect(self.db_path) as conn:
+        with self.abrir_conexion() as conn:
             cursor = conn.cursor()
             cursor.execute(query, materia_id, nombre)
             conn.commit()
@@ -48,7 +45,7 @@ class CrudMaterias:
     def eliminar_materia(self, materia_id):
         query = """DETELE FROM Materias WHERE materiaID = ?
         """
-        with sqlite3.connect(self.db_path) as conn:
+        with self.abrir_conexion() as conn:
             cursor = conn.cursor()
             cursor.execute(query, (materia_id,))
             conn.commit
