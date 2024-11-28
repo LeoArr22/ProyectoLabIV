@@ -1,4 +1,4 @@
-from clase_conexion import Conexion
+from data.crud.clase_conexion import Conexion
 
 class CrudNotas(Conexion):
     def __init__(self):

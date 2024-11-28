@@ -1,4 +1,4 @@
-from clase_conexion import Conexion
+from data.crud.clase_conexion import Conexion
 
 class CrudMaterias(Conexion):
     def __init__(self):
@@ -60,4 +60,14 @@ class CrudMaterias(Conexion):
             conn.commit()
             return cursor.rowcount #Devuelve el numero de filas eliminadas        
         
-    
+
+
+crud_materias = CrudMaterias()
+materias = crud_materias.obtener_todas()
+
+if materias:
+    print("Materias obtenidas:")
+    for materia in materias:
+        print(materia)
+else:
+    print("No se encontraron materias.")

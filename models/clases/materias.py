@@ -1,4 +1,4 @@
-from util.validadores import *
+from models.clases.util.validadores import *
 
 class Materia:
     def __init__(self, nombre=None):

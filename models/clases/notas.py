@@ -1,4 +1,4 @@
-from util.validadores import *
+from models.clases.util.validadores import *
 
 class Nota:
     def __init__(self, nota1=None, nota2=None, recuperatorio1=None, recuperatorio2=None, nota_final=None, estado="En curso"):

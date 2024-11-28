@@ -115,3 +115,5 @@ class Alumno:
 #     print(e)  # Muestra el error si las validaciones fallan
 
 # print(alumno1.apellido)  # Imprime el valor actual del nombre
+
+
