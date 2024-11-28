@@ -1,4 +1,4 @@
-from clase_conexion import Conexion
+from data.crud.clase_conexion import Conexion
 
 class CrudAlumnos(Conexion):
     def __init__(self):
@@ -17,7 +17,7 @@ class CrudAlumnos(Conexion):
             return cursor.lastrowid  #Devuelve el ID del alumno creado
 
 #READ: todos los alumnos
-    def obtener_todos(self, campo="nombre", orden="ASC"): #Mediante desplegables enviamos campo y orden
+    def obtener_todos_ordenados(self, campo="nombre", orden="ASC"): #Mediante desplegables enviamos campo y orden
         query = f"SELECT * FROM Alumnos ORDER BY {campo} {orden}"
         with self.abrir_conexion() as conn:
             cursor = conn.cursor()

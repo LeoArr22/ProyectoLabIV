@@ -1,6 +1,6 @@
 import customtkinter as ctk
 from tkinter.font import BOLD
-from gui.util.utils_gui import centrar_ventana, leer_imagen
+from gui.util.gestion_ventanas import centrar_ventana, leer_imagen, destruir
 from gui.menu_principal.menu_principal import MenuPrincipal
 
 
@@ -29,13 +29,11 @@ class Inicio:
         #Boton de login
         btn_login = ctk.CTkButton(self.frame_fondo, font=('Helvetica', 25, BOLD), text="Ingresar", 
                                   text_color="#FFFFFF", fg_color='#22242B', hover_color="#7B878D",
-                                  border_width=2, border_color="#FFFFFF", command=lambda: self.destruir(self.ventana))
+                                  border_width=2, border_color="#FFFFFF", command=lambda: destruir(self.ventana, MenuPrincipal))
         btn_login.place(relx=0.65, rely=0.7) 
         
         # Ejecutar la ventana
         self.ventana.mainloop()
         
-    def destruir(self, ventana_actual):
-        ventana_actual.destroy()  # Cierra la ventana actual
-        MenuPrincipal() 
+    
         

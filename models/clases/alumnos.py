@@ -1,4 +1,4 @@
-from util.validadores import *
+from models.clases.util.validadores import *
 
 #Todos nuestros atributos tendran de valor predeterminado None
 #De esta forma vamos a poder actualizar atributos de manera individual
@@ -105,9 +105,6 @@ class Alumno:
 
             recorre_validadores(validadores, nuevo_direccion)
             self.__direccion = nuevo_direccion          
-
-
-alumno1=Alumno()
         
         
 #FORMA DE UTILIZARLO    

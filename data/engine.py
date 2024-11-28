@@ -58,7 +58,7 @@ with sqlite3.connect(db_path) as conn:
     
     cursor=cursor.execute("""
         CREATE TABLE IF NOT EXISTS Amonestaciones (
-        amonestacionesID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+        amonestacionID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
         alumnoID INTEGER NOT NULL, -- Relación con Alumnos
         fecha DATE NOT NULL,
         motivo TEXT NOT NULL,
