@@ -40,6 +40,7 @@ class CrudAlumnos(Conexion):
             cursor.execute(query, (documento,)) #cursor espera una lista o una tupla. Como solo estamos pasando
                                     #un unico atributo debemos colocar una coma para que python entienda que se trata de una tupla
             return cursor.fetchone()
+
             
 #UPDATE: Modificar un alumno
     def actualizar_alumno(self, alumno_id, nombre, apellido, documento, telefono, direccion):
@@ -75,3 +76,4 @@ class CrudAlumnos(Conexion):
             cursor.execute(query)
             conn.commit()
             return cursor.rowcount #Devuelve el numero de filas eliminadas
+        

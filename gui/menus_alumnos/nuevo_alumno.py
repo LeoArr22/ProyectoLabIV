@@ -100,7 +100,7 @@ class CrearAlumno:
         for campo, valor in zip(campos, valores):
             try:
                 setattr(alumno, campo, valor)  # Intenta setear el valor en el objeto Alumno
-                # Usamos el nombre exacto del campo (con acento) para acceder al mensaje de error
+                # Usamos el nombre exacto del campo para acceder al mensaje de error
                 self.labels_error[campo.capitalize()].configure(text="")  # Limpia el error si fue válido
             except Exception as e:
                 errores[campo] = str(e)  # Captura el error de validación

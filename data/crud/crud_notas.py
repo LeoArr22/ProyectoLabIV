@@ -66,7 +66,7 @@ class CrudNotas(Conexion):
             return cursor.rowcount #Si devuelve 0 no encontro el registro
         
         
-#DELETE: Eliminar una falta
+#DELETE: Eliminar una nota
     def eliminar_nota(self, alumno_id, materia_id):
         query = "DELETE FROM Notas WHERE alumnoID = ? AND materiaID = ?"
         with self.abrir_conexion() as conn:
@@ -75,7 +75,7 @@ class CrudNotas(Conexion):
             conn.commit()
             return cursor.rowcount  #Devuelve el numero de fila eliminada, si devuelve 0 no habia registro
         
-#DELETE: Eliminar a todas las faltas
+#DELETE: Eliminar a todas las nota
     def eliminar_todas_notas(self):
         query = "DELETE FROM Notas"
         with self.abrir_conexion() as conn:

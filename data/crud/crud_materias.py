@@ -25,6 +25,17 @@ class CrudMaterias(Conexion):
             cursor.execute(query)
             return cursor.fetchall()
 
+#READ: Busca por ID
+    def obtener_por_id(self, materia_id):
+        """
+        Obtiene el nombre de la materia a partir del ID.
+        """
+        query = f"SELECT nombre FROM Materias WHERE materiaID = {materia_id}"
+        with self.abrir_conexion() as conn:
+            cursor = conn.cursor()
+            cursor.execute(query)
+            resultado = cursor.fetchone()
+            return resultado[0] if resultado else None
 
 #UPDATE: Modificar una materia
     def actualizar_materia(self, materia_id, nombre):

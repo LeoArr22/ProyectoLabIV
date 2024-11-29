@@ -29,14 +29,14 @@ with sqlite3.connect(db_path) as conn:
     #Ademas agregamos que se eliminen en cascada en caso de eliminar un alumno o materia
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS Notas (
-        alumnoID INTEGER NOT NULL, -- Relación con Alumnos
+        alumnoID INTEGER NOT NULL,
         materiaID INTEGER NOT NULL,
         nota1 INTEGER DEFAULT NULL,
         nota2 INTEGER DEFAULT NULL,
         recuperatorio1 INTEGER DEFAULT NULL,
         recuperatorio2 INTEGER DEFAULT NULL,
         notaFinal INTEGER DEFAULT NULL,
-        estado TEXT NOT NULL DEFAULT 'En curso',
+        estado TEXT DEFAULT NULL,
         PRIMARY KEY (alumnoID, materiaID),
         FOREIGN KEY (alumnoID) REFERENCES Alumnos(alumnoID) ON DELETE CASCADE,
         FOREIGN KEY (materiaID) REFERENCES Materias(materiaID) ON DELETE CASCADE
