@@ -36,6 +36,15 @@ class CrudMaterias(Conexion):
             cursor.execute(query)
             resultado = cursor.fetchone()
             return resultado[0] if resultado else None
+        
+    
+    def obtener_materia_por_nombre(self, nombre):
+        query = "SELECT materiaID FROM Materias WHERE nombre = ?"
+        with self.abrir_conexion() as conn:
+            cursor = conn.cursor()
+            cursor.execute(query, (nombre,))
+            return cursor.fetchone()
+
 
 #UPDATE: Modificar una materia
     def actualizar_materia(self, materia_id, nombre):
@@ -47,7 +56,7 @@ class CrudMaterias(Conexion):
         
         with self.abrir_conexion() as conn:
             cursor = conn.cursor()
-            cursor.execute(query, materia_id, nombre)
+            cursor.execute(query, (nombre, materia_id))
             conn.commit()
             return cursor.rowcount
         

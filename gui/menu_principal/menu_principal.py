@@ -5,7 +5,7 @@ from gui.menus_alumnos.menu_alumnos import MenuAlumnos
 from gui.menu_materias.menu_materias import MenuMaterias
 from gui.menu_faltas.menu_faltas import MenuFaltas
 from gui.menu_amonestaciones.menu_amonestaciones import MenuAmonestaciones
-from gui.menu_notas.menu_notas import MenuNotas  # Importamos el menú de Notas
+from gui.menu_notas.ver_notas import MenuNotas  # Importamos el menú de Notas
 
 class MenuPrincipal:
     def __init__(self):

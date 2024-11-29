@@ -43,9 +43,28 @@ class CrudNotas(Conexion):
         with self.abrir_conexion() as conn:
             cursor = conn.cursor()
             cursor.execute(query, (materia_id,))
-            return cursor.fetchall()          
+            return cursor.fetchall()                  
         
         
+#READ: CON UN JOIN OBTENEMOS NOTAS CON ALUMNOS NOMBRE COMPLETO Y NOMBRE DE MATERIA
+    def obtener_notas_con_alumno_y_materia(self):
+        query = """
+            SELECT 
+                a.nombre || ' ' || a.apellido AS nombre_completo,
+                a.documento,
+                m.nombre AS nombre_materia,
+                n.nota1, n.nota2, n.recuperatorio1, n.recuperatorio2,
+                n.notaFinal, n.estado
+            FROM Notas n
+            JOIN Alumnos a ON n.alumnoID = a.alumnoid
+            JOIN Materias m ON n.materiaID = m.materiaid
+        """
+        with self.abrir_conexion() as conn:
+            cursor = conn.cursor()
+            cursor.execute(query)
+            return cursor.fetchall()
+
+
 #UPDATE: Modificar una nota
     def actualizar_nota(self, alumno_id, materia_id, nota1, nota2, 
                    recuperatorio1, recuperatorio2, notaFinal, estado):
@@ -61,8 +80,7 @@ class CrudNotas(Conexion):
                 """
         with self.abrir_conexion() as conn:
             cursor = conn.cursor()
-            cursor.execute(query, (nota1, nota2, recuperatorio1, recuperatorio2,
-                                   notaFinal, estado, alumno_id, materia_id))
+            cursor.execute(query, (nota1, nota2, recuperatorio1, recuperatorio2,notaFinal, estado, alumno_id, materia_id))
             return cursor.rowcount #Si devuelve 0 no encontro el registro
         
         
@@ -83,3 +101,4 @@ class CrudNotas(Conexion):
             cursor.execute(query)
             conn.commit()
             return cursor.rowcount #Devuelve el numero de filas eliminadas        
+        

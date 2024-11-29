@@ -2,6 +2,7 @@ import customtkinter as ctk
 from tkinter.font import BOLD
 from gui.util.gestion_ventanas import centrar_ventana, destruir
 from .nuevo_alumno import CrearAlumno
+from gui.menus_alumnos.ver_alumnos import VerAlumnos
 
 class MenuAlumnos:
     def __init__(self):
@@ -45,7 +46,7 @@ class MenuAlumnos:
 
         btn_ver_alumnos = ctk.CTkButton(self.columna_1, text="Ver Alumnos", font=('Helvetica', 30, 'bold'),
                                         text_color="#FFFFFF", fg_color="#1F2C5D", hover_color="#4B5B7A",
-                                        command=lambda: destruir(self.ventana, self.abrir_ver_alumnos))
+                                        command=lambda: destruir(self.ventana, VerAlumnos))
         btn_ver_alumnos.grid(row=0, column=0, sticky="nsew")  # Rellenar el espacio
 
         # Segunda columna (Azul)

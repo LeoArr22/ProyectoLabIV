@@ -3,6 +3,7 @@ from tkinter.font import BOLD
 from gui.util.gestion_ventanas import centrar_ventana, destruir
 from gui.menu_materias.nueva_materia import CrearMateria
 from gui.menu_materias.asignar_materias import CrearNota
+from gui.menu_materias.ver_materias import VerMaterias
 
 
 class MenuMaterias:
@@ -45,7 +46,7 @@ class MenuMaterias:
 
         btn_ver_materias = ctk.CTkButton(self.columna_1, text="Ver Materias", font=('Helvetica', 30, 'bold'),
                                          text_color="#FFFFFF", fg_color="#28A745", hover_color="#5A9E69",
-                                         command=lambda: destruir(self.ventana, self.abrir_ver_materias))
+                                         command=lambda: destruir(self.ventana, VerMaterias))
         btn_ver_materias.grid(row=0, column=0, sticky="nsew")  # Rellenar el espacio
 
         # Segunda columna (Verde más claro)

@@ -1,7 +1,7 @@
 from models.clases.util.validadores import *
 
 class Nota:
-    def __init__(self, nota1=None, nota2=None, recuperatorio1=None, recuperatorio2=None, nota_final=None, estado="En curso"):
+    def __init__(self, nota1=None, nota2=None, recuperatorio1=None, recuperatorio2=None, nota_final=None, estado=None):
         self.nota1 = nota1
         self.nota2 = nota2
         self.recuperatorio1 = recuperatorio1

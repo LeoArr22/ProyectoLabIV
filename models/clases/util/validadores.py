@@ -45,12 +45,13 @@ def longitud_numero(numero, min, max):
     else:
         return (True, "")
 
-def solo_numero(numero):
-    numero=str(numero)
-    if re.fullmatch("[0-9]+", numero):
-        return (True, "")    
-    else:
-        return (False, "Solo se permiten numeros")
+def solo_numero(valor):
+    if valor is None:
+        return (True, "")  # Retorna una tupla consistente
+    if not isinstance(valor, (int, float)):
+        return (False, f"El valor '{valor}' no es un número válido.")
+    return (True, "")
+
     
 def dentro_rango(numero, min, max):
     if numero < min or numero > max:
