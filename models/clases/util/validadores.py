@@ -36,21 +36,19 @@ def solo_letras(palabra):
             
 #VALIDADORES DE INT
 
-def longitud_numero(numero, min, max):
-    numero=str(numero)
-    if len(numero) > max:
-        return (False, f"Superó la longitud máxima de {max} números")
-    elif len(numero) < min:
-        return (False, f"No alcanzó la longitud mínima de {min} números")
-    else:
-        return (True, "")
+def longitud_numero(numero, min_len, max_len):
+    if not (min_len <= len(numero) <= max_len):
+        return False, f"Debe tener entre {min_len} y {max_len} dígitos."
+    return True, ""
 
-def solo_numero(valor):
-    if valor is None:
-        return (True, "")  # Retorna una tupla consistente
-    if not isinstance(valor, (int, float)):
-        return (False, f"El valor '{valor}' no es un número válido.")
-    return (True, "")
+def solo_numero(numero):
+    try:
+        numero = int(numero)
+        return True, ""
+    except ValueError:
+        return False, "El valor debe ser un número entero."
+    
+
 
     
 def dentro_rango(numero, min, max):

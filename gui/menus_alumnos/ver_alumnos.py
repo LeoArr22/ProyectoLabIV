@@ -160,8 +160,8 @@ class VerAlumnos:
                 alumno_modificado = Alumno(
                     nombre=entradas["Nombre"].get(),
                     apellido=entradas["Apellido"].get(),
-                    documento=int(entradas["DNI"].get()),
-                    telefono=int(entradas["Teléfono"].get()),
+                    documento=(entradas["DNI"].get()),
+                    telefono=(entradas["Teléfono"].get()),
                     direccion=entradas["Dirección"].get()
                 )
 

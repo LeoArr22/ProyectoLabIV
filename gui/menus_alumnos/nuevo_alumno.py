@@ -2,7 +2,7 @@ import customtkinter as ctk
 from tkinter import StringVar
 from models.clases.util.validadores import *
 from gui.util.gestion_ventanas import centrar_ventana
-from models.clases.alumnos import Alumno  
+from models.clases.alumnos import Alumno
 from data.crud.crud_alumnos import CrudAlumnos
 
 class CrearAlumno:
@@ -64,7 +64,7 @@ class CrearAlumno:
         # Botón Aceptar (limpiar campos)
         ctk.CTkButton(
             frame_botones,
-            text="Aceptar",
+            text="Limpiar",
             command=self.limpiar_campos,
             fg_color="#007BFF",
             hover_color="#0056B3",
@@ -100,11 +100,9 @@ class CrearAlumno:
         for campo, valor in zip(campos, valores):
             try:
                 setattr(alumno, campo, valor)  # Intenta setear el valor en el objeto Alumno
-                # Usamos el nombre exacto del campo para acceder al mensaje de error
                 self.labels_error[campo.capitalize()].configure(text="")  # Limpia el error si fue válido
             except Exception as e:
                 errores[campo] = str(e)  # Captura el error de validación
-                # Muestra el error usando el nombre exacto del campo que se utiliza en labels_error
                 self.labels_error[campo.capitalize()].configure(text=str(e))  
 
         if errores:
@@ -117,7 +115,6 @@ class CrearAlumno:
         if not alumno:
             return  # Si hay errores, no procede
 
-        # Validar si es completo
         if not alumno.es_completo():
             ctk.CTkLabel(
                 self.ventana,

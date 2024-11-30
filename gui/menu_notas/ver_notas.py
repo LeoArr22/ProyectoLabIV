@@ -7,7 +7,6 @@ from models.clases.notas import Nota
 from gui.util.gestion_ventanas import destruir
 
 
-
 class MenuNotas:
     def __init__(self):
         self.crud_notas = CrudNotas()
@@ -80,7 +79,6 @@ class MenuNotas:
         for nota in notas:
             self.treeview.insert("", "end", values=nota)
 
-
     def eliminar_nota(self):
         """Elimina una nota seleccionada usando el DNI."""
         seleccionado = self.treeview.focus()
@@ -97,23 +95,18 @@ class MenuNotas:
         datos = self.treeview.item(seleccionado, "values")
         dni, nombre_materia = datos[1], datos[2]
 
-        # Obtener alumnoID usando CrudAlumnos y DNI
         alumno = self.crud_alumnos.obtener_por_documento(dni)
         if alumno is None:
             messagebox.showerror("Error", "No se encontró el alumno.")
             return
 
         alumno_id = alumno[0]
-
-        # Obtener materiaID a partir del nombre de la materia (si no está ya en los datos)
         materia = self.crud_materias.obtener_materia_por_nombre(nombre_materia)
         if materia is None:
             messagebox.showerror("Error", "No se encontró la materia.")
             return
 
         materia_id = materia[0]
-
-        # Eliminar nota
         filas_afectadas = self.crud_notas.eliminar_nota(alumno_id, materia_id)
         if filas_afectadas > 0:
             messagebox.showinfo("Éxito", "Nota eliminada correctamente.")
@@ -121,7 +114,16 @@ class MenuNotas:
         else:
             messagebox.showerror("Error", "No se pudo eliminar la nota.")
 
-            
+    def _convertir_a_int(self, valor):
+        """Convierte un valor a entero, permitiendo valores None."""
+        valor = valor.strip() if valor else ""
+        if valor == "" or valor == "None":
+            return None
+        try:
+            return int(valor)
+        except ValueError:
+            raise ValueError(f"El valor '{valor}' no es un número entero válido.")
+
     def modificar_nota(self):
         """Modifica una nota seleccionada."""
         seleccionado = self.treeview.focus()
@@ -129,31 +131,22 @@ class MenuNotas:
             messagebox.showwarning("Advertencia", "Seleccione una nota para modificar.")
             return
 
-        # Obtener datos de la fila seleccionada
         datos = self.treeview.item(seleccionado, "values")
         nombre_completo, dni, materia_id, nota1, nota2, rec1, rec2, nota_final, estado = datos
-
-        # Obtener alumnoID usando CrudAlumnos y DNI
         alumno = self.crud_alumnos.obtener_por_documento(dni)
         if alumno is None:
             messagebox.showerror("Error", "No se encontró el alumno.")
             return
 
         alumno_id = alumno[0]
-
-        # Obtener materiaID usando CrudMaterias
         materia = self.crud_materias.obtener_materia_por_nombre(materia_id)
         if materia is None:
             messagebox.showerror("Error", "No se encontró la materia.")
             return
 
         materia_id = materia[0]
-
-        # Crear ventana emergente para editar
         ventana_edicion = ctk.CTkToplevel(self.ventana)
         ventana_edicion.title("Modificar Nota")
-
-        # Campos para modificar
         campos = {
             "Nota 1": nota1,
             "Nota 2": nota2,
@@ -163,39 +156,30 @@ class MenuNotas:
             "Estado": estado,
         }
         entradas = {}
-
-        # Crear entradas para cada campo
         for idx, (campo, valor) in enumerate(campos.items()):
             label = ctk.CTkLabel(ventana_edicion, text=campo)
             label.grid(row=idx, column=0, padx=10, pady=5)
-
             entrada = ctk.CTkEntry(ventana_edicion)
-            entrada.insert(0, valor)  # Rellenar con el valor actual
+            entrada.insert(0, valor)
             entrada.grid(row=idx, column=1, padx=10, pady=5)
             entradas[campo] = entrada
 
-        # Botón para guardar cambios
         def guardar_cambios():
             try:
-                # Crear una instancia de Nota con los valores ingresados
-                # Crear una instancia de Nota con los valores ingresados
                 nueva_nota = Nota(
-                    nota1=self._convertir_a_float(entradas["Nota 1"].get()),
-                    nota2=self._convertir_a_float(entradas["Nota 2"].get()),
-                    recuperatorio1=self._convertir_a_float(entradas["Recuperatorio 1"].get()),
-                    recuperatorio2=self._convertir_a_float(entradas["Recuperatorio 2"].get()),
-                    nota_final=self._convertir_a_float(entradas["Nota Final"].get()),
-                    estado=entradas["Estado"].get().strip()  # Elimina espacios en blanco alrededor del texto
+                    nota1=self._convertir_a_int(entradas["Nota 1"].get()),
+                    nota2=self._convertir_a_int(entradas["Nota 2"].get()),
+                    recuperatorio1=self._convertir_a_int(entradas["Recuperatorio 1"].get()),
+                    recuperatorio2=self._convertir_a_int(entradas["Recuperatorio 2"].get()),
+                    nota_final=self._convertir_a_int(entradas["Nota Final"].get()),
+                    estado=entradas["Estado"].get().strip() or None
                 )
-
-                # Validar los datos al instanciar la clase `Nota`
                 filas_afectadas = self.crud_notas.actualizar_nota(
                     alumno_id, materia_id,
                     nueva_nota.nota1, nueva_nota.nota2,
                     nueva_nota.recuperatorio1, nueva_nota.recuperatorio2,
                     nueva_nota.nota_final, nueva_nota.estado
                 )
-
                 if filas_afectadas > 0:
                     messagebox.showinfo("Éxito", "Nota modificada correctamente.")
                     self.cargar_notas()
@@ -209,19 +193,3 @@ class MenuNotas:
 
         boton_guardar = ctk.CTkButton(ventana_edicion, text="Guardar Cambios", command=guardar_cambios)
         boton_guardar.grid(row=len(campos), column=0, columnspan=2, pady=10)
-
-    
-    def _convertir_a_float(self, valor):
-        """
-        Convierte un valor a float si es posible, o devuelve None si está vacío o no es un número válido.
-        """
-        valor = valor.strip()  # Elimina espacios en blanco alrededor
-        if not valor:  # Si el valor está vacío
-            return None
-        try:
-            return float(valor)
-        except ValueError:
-            raise ValueError(f"El valor '{valor}' no es un número válido o está mal formateado.")
-
-
-
